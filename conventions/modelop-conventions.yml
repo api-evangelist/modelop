@@ -1,0 +1,196 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159992113/Audit+Logging
+  + .../3159991960/Custom+Form+Administration
+  + .../3159984494/Update+an+Existing+Model
+  + .../3159997056/ModelOp+Runtime+Details
+  + .../3159986836/Operationalizing+Models:+ModelOp+Runtime+as+REST
+  + https://www.modelop.com/ai-governance-software/integrations
+checked: '2026-08-25'
+summary: >-
+  Cross-cutting semantics for the ModelOp Center REST API, captured from the public documentation
+  hub. There is no fetchable OpenAPI — ModelOp Center is customer-deployed and its Swagger UI is
+  served only from a customer's own instance — so everything here is read from documented request
+  and response examples rather than parsed from a spec. Idempotency is NOT documented; do not
+  assume it.
+contract_surface:
+  style: rest
+  spec_published_publicly: false
+  spec_location_template: '{modelop-base-url}/swagger-ui/webjars/swagger-ui/index.html?urls.primaryName=model-manage'
+  spec_location_note: >-
+    The docs instruct users to open Swagger UI on their OWN deployment. The `urls.primaryName`
+    query parameter selects between multiple API groups, of which `model-manage` is the one named
+    in the docs, indicating a springdoc multi-group Swagger UI in front of the microservices.
+  path_prefix: /api
+  observed_paths:
+    - path: /api/applicationForms/{id}
+      methods: [GET, PATCH]
+      swagger_group: ApplicationForm Entity
+      source: Custom Form Administration (form promotion between environments)
+    - path: /api/auditRecords
+      methods: [GET]
+      swagger_group: AuditRecord Entity
+      source: Audit Logging
+    - path: /api/storedModels/{id}
+      methods: [PATCH]
+      swagger_group: StoredModel Entities
+      source: Update an Existing Model (Use Case <-> Implementation type conversion)
+      caution: >-
+        Path shape inferred from the documented "PATCH section inside StoredModel Entities" plus
+        the /api/{collection}/{id} pattern proven by applicationForms. Confidence medium — the
+        docs name the Swagger group and the verb but not the literal path.
+  runtime_surface:
+    control_port: 8003
+    health: '{hostname:port}/1/health'
+    status: '{hostname:port}/1/platforms'
+    scoring: >-
+      A deployed model is attached to a REST endpoint on a separately-exposed port; a POST to that
+      endpoint is funneled into the model's `action` function and the yielded data is returned in
+      the response (synchronous round-trip).
+    roundtrip_default_timeout_ms: 5000
+    config_key: modelop.runtime.roundtrip-default-timeout
+authentication:
+  style: oauth2_oidc_bearer
+  see: authentication/modelop-authentication.yml
+response_envelope:
+  format: hal-json
+  evidence: >-
+    The published audit-record example returns {"_embedded": {"auditRecords": [...]}} and the
+    form-promotion instructions tell the user to "delete the `_links` section" before PATCHing a
+    form back. `_embedded` + `_links` is the HAL envelope emitted by Spring Data REST, which is
+    consistent with the Spring-based configuration keys (spring.application.name,
+    spring.cloud.config.uri, spring.profiles.active) documented for the runtime.
+  confidence: high
+  note: >-
+    Collection resources are keyed by the plural entity name inside `_embedded`
+    (e.g. `auditRecords`). No content negotiation or envelope alternative is documented.
+pagination:
+  style: undocumented
+  note: >-
+    No pagination parameters, page-size caps or cursor mechanics are documented anywhere in the
+    public docs hub. A Spring Data REST HAL surface conventionally exposes `page`/`size`/`sort`
+    and a `page` object, but ModelOp does not state this and it is NOT recorded as a finding —
+    an agent must discover it against a live deployment.
+filtering_and_search:
+  note: >-
+    Advanced filtering (multi-field, AND/OR rules), saved views and custom-metadata type-ahead
+    search are documented as UI capabilities in v3.4. No corresponding query-parameter grammar is
+    published.
+idempotency:
+  documented: false
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No idempotency-key mechanism appears anywhere in the ModelOp Center documentation hub. The
+    write surface includes non-idempotent creates (snapshots, batch jobs, MLC signals) and a
+    snapshot typically TRIGGERS a Model Life Cycle, so a retried create can start a duplicate
+    governance workflow. No `Idempotency` pointer is emitted for this provider — the
+    agent-readiness idempotency dimension is a genuine zero, not a missing pointer.
+  agent_risk: >-
+    An agent that retries `POST /api/snapshots` or an MLC `signal` after a timeout has no safe
+    replay primitive and may raise duplicate approvals, duplicate Jira/ServiceNow tickets, and
+    duplicate deployments into a production runtime.
+rate_limit_signaling:
+  documented: false
+  see: rate-limits/modelop-rate-limits.yml
+versioning:
+  api_version_in_path: false
+  note: >-
+    No version segment is documented in the API path. The product is versioned (v3.4 current) and
+    the docs hub is split into one Confluence space per minor release, so the DOCS are versioned
+    even though the API path is not.
+  see: lifecycle/modelop-lifecycle.yml
+error_envelope:
+  documented: false
+  rfc9457: false
+  note: >-
+    No error reference, error-code registry or problem-details envelope is published. The only
+    status codes named in the docs are success cases ("Confirm the response code is 200"). No
+    errors/ artifact is emitted rather than authoring one — see conformance/.
+request_tracing:
+  documented: false
+  note: No request-id / correlation-id response header is documented.
+audit:
+  available: true
+  levels: [NONE, METADATA_CHANGES_ONLY, CHANGES_ONLY, FULL]
+  recommended: METADATA_CHANGES_ONLY
+  api: /api/auditRecords (AuditRecord Entity)
+  ui: 'Recent Activity section of a model page (ModelOp Center v3.4+)'
+  note: >-
+    CHANGES_ONLY and FULL are explicitly marked "** NOT RECOMMENDED **" in the docs.
+
+reversibility:
+  overall_grade: undocumented
+  applicable: true
+  applicable_note: >-
+    This is a read-AND-write API — models, snapshots, deployments, jobs, schemas, assets and
+    application forms are all created and mutated through it — so reversibility is in scope and
+    an honest `na` is not available here.
+  surfaces:
+    - write_surface: Create a model snapshot (version)
+      operation_id: null
+      reversal_operation: null
+      reversal_documented: false
+      window: null
+      note: >-
+        Snapshots are explicitly "immutable" and "persisted in perpetuity for long term
+        auditability". There is deliberately no delete or rollback: the reverse of a bad snapshot
+        is another snapshot. Creating one typically TRIGGERS a Model Life Cycle, and no cancel
+        operation for an in-flight MLC is documented.
+      source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159985152/Adding+/+Managing+Model+Versions+(Snapshots)
+    - write_surface: PATCH an Application Form
+      operation_id: null
+      reversal_operation: null
+      reversal_documented: false
+      window: null
+      note: >-
+        The docs state the opposite of reversibility: "Once an application form has been used, it
+        can only be updated with new fields as existing fields can't be modified or removed."
+        Deleting a form is documented as a UI action with no stated undo.
+      source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159991960/Custom+Form+Administration
+    - write_surface: PATCH a StoredModel type (Use Case <-> Implementation conversion)
+      operation_id: null
+      reversal_operation: PATCH back to the prior type
+      reversal_documented: partial
+      window: null
+      note: >-
+        The docs describe converting a StoredModel between USE_CASE and an implementation type
+        by PATCHing modelMetaData.type, and flag it as "advanced functionality, so please proceed
+        with caution". The inverse PATCH is mechanically available but the docs neither name it as
+        a reversal nor state what is lost, so it is not counted as a documented reversal path.
+      source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159984494/Update+an+Existing+Model
+    - write_surface: Deploy a model to a runtime
+      operation_id: null
+      reversal_operation: null
+      reversal_documented: false
+      window: null
+      note: >-
+        Undeploy/rollback is orchestrated by a customer-authored Model Life Cycle (BPMN), not by a
+        named platform operation, so no reversal contract is published.
+  admin_level_recovery:
+    - mechanism: Database backup / restore
+      scope: whole-deployment, administrator-only
+      window: null
+      source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993375/How+To+Backup/Restore+ModelOp+Center's+Databases
+      note: >-
+        Operator-level disaster recovery, NOT an API-level reversal. Recorded so it is not
+        mistaken for one.
+  grading_basis: >-
+    Grade is `undocumented` (not `documented`, not `verified`): no write operation on this API has
+    a named reversal operation in the public docs, and no reversal WINDOW is stated anywhere. No
+    window has been invented here. An agent acting against ModelOp Center must treat every write
+    as one-way unless the customer's own MLC provides a compensating path.
+dry_run_mode:
+  documented: false
+  note: >-
+    No dry-run / validate-only / preview mode is documented for any write operation. The nearest
+    published capability is running a model as a TEST job before promotion, which is a governance
+    step, not a request-level dry run.
+cross_links:
+  authentication: authentication/modelop-authentication.yml
+  lifecycle: lifecycle/modelop-lifecycle.yml
+  rate_limits: rate-limits/modelop-rate-limits.yml
+  data_model: data-model/modelop-data-model.yml
+  cli: cli/modelop-cli.yml

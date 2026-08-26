@@ -1,0 +1,44 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  https://www.modelop.com/sitemap.xml (452 URLs, no pricing page) + live probes of
+  /pricing, /plans and the site navigation; https://www.modelop.com/demo-request
+checked: '2026-08-25'
+plan_count: 0
+pricing_model: enterprise-contact-sales
+currency: null
+summary: >-
+  ModelOp publishes NO pricing of any kind. There is no pricing page, no tier table, no per-seat
+  or per-model list price, and no free tier or trial. The entire commercial path is a
+  "Request a Demo" form. The complete 452-URL sitemap contains no /pricing, /plans or /packages
+  URL; the closest published commercial artefacts are ROI/value calculators, which estimate the
+  BUYER's return rather than ModelOp's price.
+probed:
+  - url: https://www.modelop.com/pricing
+    status: 404
+  - url: https://www.modelop.com/demo-request
+    status: 200
+    note: The only documented commercial entry point.
+  - url: https://www.modelop.com/contact
+    status: 200
+plans: []
+adjacent_commercial_pages:
+  - url: https://www.modelop.com/modelops-roi-calculators
+    kind: roi-calculator-index
+  - url: https://www.modelop.com/ai-orchestration-value-calculator
+    kind: value-calculator
+  - url: https://www.modelop.com/model-risk-industrialization-value-calculator
+    kind: value-calculator
+  - url: https://www.modelop.com/executive-visibility-for-ai-value-calculator
+    kind: value-calculator
+  - url: https://www.modelop.com/rfp-template-ai-lifecycle-management-and-governance
+    kind: buyer-rfp-template
+pointer_basis: >-
+  A `Plans` pointer IS emitted (the artifact records a measured zero, which is data). A `Pricing`
+  pointer is NOT emitted, because no pricing page exists to point at — emitting one would assert
+  a page ModelOp does not publish.
+note: >-
+  An honest zero. For a self-hosted enterprise governance platform sold to regulated
+  Fortune-1000 buyers this is the norm rather than an omission, but it is still the single
+  largest commercial-transparency gap in this profile: a prospective integrator cannot size the
+  cost of the API surface at all without entering a sales cycle.

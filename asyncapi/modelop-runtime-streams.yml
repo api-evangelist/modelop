@@ -1,0 +1,61 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159997056/ModelOp+Runtime+Details
+  + .../3159997036/ModelOp+Runtime
+  + .../3159986836/Operationalizing+Models:+ModelOp+Runtime+as+REST
+  + full-text search of the docs hub for "webhook" (0 results) and "asyncapi" (0 results)
+checked: '2026-08-25'
+asyncapi_published: false
+webhook_catalog_published: false
+summary: >-
+  An event/streaming surface genuinely exists inside a ModelOp deployment — the ModelOp Runtime's
+  stream abstraction supports Kafka, and a v3.4 Notifier "Reminder" service emits scheduled
+  notifications — but ModelOp publishes NO AsyncAPI document and NO webhook catalogue. There is
+  nothing for an external consumer to subscribe to and nothing machine-readable to capture.
+pointer_basis: >-
+  NEITHER an `AsyncAPI` nor a `Webhooks` pointer is emitted in apis.yml. `Webhooks` asserts an
+  advertised webhook surface a consumer can register for; ModelOp advertises none. This file
+  records what the event surface actually is, so a later round does not read the Kafka support as
+  a published event contract.
+streams:
+  concept: >-
+    The ModelOp Runtime is composed of streams (I/O), a jet (the model-code wrapper) and a
+    manifold (lifecycle management). Input and output streams are configured independently.
+  supported_transports:
+    - REST
+    - Kafka
+    - File
+    - S3
+    - ODBC
+  note: >-
+    The one coupling case is a round-trip REST call that returns the result of synchronously
+    processed POSTed input. Kafka is an internal deployment wiring choice — topic names, message
+    schemas and payload contracts are per-customer, not published by ModelOp.
+  supporting_repo:
+    url: https://github.com/modelop/kafka
+    description: 'Kafka + Zookeeper (ModelOp GitHub org, Shell)'
+message_schemas:
+  mechanism: >-
+    Per-model input/output Schemas are a first-class, versioned ModelOp Center asset (`moc schema`
+    manages them, and snapshots reference "the exact schema definition that is used"). ModelOp
+    maintains `python-quickavro` in its GitHub org, and the runtime logs records rejected by a
+    schema (modelop.runtime.display-records).
+  published: false
+  note: Schemas are customer-authored per model. ModelOp publishes no catalogue of them.
+notifications:
+  service: Notifier "Reminder" service
+  introduced: '3.4'
+  description: >-
+    Sends reminders for outstanding actions — issues, risks requiring action, expiring exemptions,
+    review conclusions requiring follow-up — on a configurable schedule.
+  delivery: internal notification / email; no outbound webhook subscription is documented.
+  source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3160309761/V3.4+Release+Notes+(LATEST)
+outbound_integrations:
+  note: >-
+    ModelOp Center pushes events OUT to ticketing systems (Jira, ServiceNow) as part of Model Life
+    Cycle execution. That is a first-party outbound integration configured per deployment, not a
+    subscribable webhook surface.
+  sources:
+    - https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993648/Integrate+with+JIRA
+    - https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993730/Integrate+with+ServiceNow

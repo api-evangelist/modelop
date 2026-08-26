@@ -1,0 +1,173 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159983166/Inventory+Key+Concepts
+  + .../3159984494/Update+an+Existing+Model  (StoredModel modelMetaData.type enum)
+  + .../3159985152/Adding+/+Managing+Model+Versions+(Snapshots)
+  + .../3159992113/Audit+Logging
+  + .../3159991960/Custom+Form+Administration
+  + .../3159992085/Permissions+Administration
+  + .../3159993475/ModelOp+CLI+Reference  (moc command groups)
+  + .../3159997036/ModelOp+Runtime
+checked: '2026-08-25'
+derivation_note: >-
+  DERIVED FROM DOCUMENTATION, NOT FROM A SPEC. There is no fetchable OpenAPI for ModelOp Center,
+  so this graph is reconstructed from the entity names ModelOp uses in its own Swagger group
+  labels ("StoredModel Entities", "AuditRecord Entity", "ApplicationForm Entity"), its RWX
+  collection keys (`stored-model`, `deployable-model`), its CLI command groups, and its published
+  concept documentation. Field-level detail is deliberately thin: only fields the docs actually
+  name are recorded. Nothing here is inferred from a schema we did not read.
+entities:
+  - name: StoredModel
+    collection: stored-model
+    ui_label: Business Models and Monitors
+    swagger_group: StoredModel Entities
+    description: >-
+      The core inventory record. Splits into two shapes distinguished by
+      modelMetaData.type: a USE_CASE (the business problem) and a Model Implementation (the
+      technology solving it). One Use Case may be solved by several Implementations.
+    fields_named_in_docs:
+      - modelMetaData.type
+      - modelMetaData.custom   # where Custom Form answers are stored
+      - modelStage             # e.g. Onboarding
+      - name
+      - description
+      - Model Complexity
+      - Model Exposure
+      - Primary Driver         # added 3.4-hotfix2
+    type_enum:
+      - PYTHON
+      - PYTHON3
+      - R
+      - PFA
+      - C
+      - CPP
+      - CC
+      - JUPYTER
+      - PFA_YAML
+      - PFA_PPFA
+      - JAVA
+      - OCTAVE
+      - DMN
+      - CMMN
+      - SAGEMAKER
+      - DATAIKU
+      - PYSPARK
+      - USE_CASE
+      - EXCEL
+      - SAS
+      - ENSEMBLE
+      - VENDOR
+      - MLFLOW
+      - UNKNOWN
+    type_enum_note: >-
+      This enum is the single richest machine-readable fragment ModelOp publishes, and it is the
+      evidence behind the domain-standard signature in conformance/ — PFA, DMN, CMMN and MLFLOW
+      are standards, not vendor products.
+  - name: Snapshot
+    collection: deployable-model
+    ui_label: Snapshots
+    aka: [DeployableModel, Model Version]
+    description: >-
+      An immutable point-in-time copy of every element composing a Model Implementation,
+      persisted in perpetuity for auditability. Creating one typically triggers a Model Life Cycle.
+    fields_named_in_docs: [name, description, Access Group, Tags, Runtime name]
+    traceability_documented:
+      - source code commitID
+      - immutable model asset (coefficients / weights / serialized artifact)
+      - dependent library list
+      - schema definition
+      - test jobs run
+      - test results
+      - approvals (with ticketing-system traceability)
+  - name: Asset
+    description: >-
+      A file or reference attached to a Use Case, Model Implementation or Snapshot. Stored inside
+      model-manage under 10 MB, in external storage above it.
+    roles_named_in_docs: [model-source, training-data, test-data, comparator-data, weights-file, model-binary, result-comparator]
+    external_storage_protocols: [http, https, s3, s3n, s3a]
+    data_technologies: ['AWS S3 / S3-compliant', 'Azure Blob Storage', 'GCP Storage Buckets', 'HDFS', 'SQL data sources']
+  - name: Schema
+    description: Versioned input/output schema for a model; records rejected against it can be logged by the runtime.
+  - name: Job
+    description: A batch job (scoring, test, metrics, training) queued and executed one at a time by a ModelOp Runtime.
+    variants: [batch scoring job, metrics job, test job, training job]
+    metrics_job_note: 'For a metrics job all input records are supplied to the action function at once (called once, not once per record).'
+  - name: DeployedModel
+    aka: Deployment
+    description: A model materialized into a Runtime and attached to a REST endpoint for synchronous scoring.
+  - name: Runtime
+    aka: Engine
+    description: >-
+      Containerized execution service (streams + jet + manifold). Registers with a Eureka
+      registry; control port 8003 by default; a separate configurable port is exposed for scoring.
+    fields_named_in_docs: [stage, Model Service Tags, group, initial-tags]
+    stage_examples: [DEV, SIT, UAT, PROD]
+    non_modelop_runtimes: [Spark, 'AWS SageMaker', 'AWS EMR Serverless']
+  - name: MLC
+    aka: Model Life Cycle
+    description: >-
+      A BPMN process executed by the embedded Camunda engine that orchestrates governance and
+      operationalization — tests, approvals, promotion between runtime stages, ticket creation.
+    protected_actions: [deploy, signal, signal-responsive]
+  - name: AuditRecord
+    swagger_group: AuditRecord Entity
+    path: /api/auditRecords
+    description: >-
+      Change record for an object. Audit level is configurable (NONE, METADATA_CHANGES_ONLY,
+      CHANGES_ONLY, FULL). Surfaced in the UI "Recent Activity" section from v3.4.
+    fields_named_in_docs: [who, when, changed field(s)]
+  - name: ApplicationForm
+    aka: Custom Form
+    swagger_group: ApplicationForm Entity
+    path: /api/applicationForms/{id}
+    description: >-
+      Admin-defined intake form bound to a Use Case or an Implementation type. Answers land in
+      StoredModel.modelMetaData.custom. Once used, a form may only gain new fields — existing
+      fields cannot be modified or removed.
+    constraint: 'Only one Custom Form per (Model methodology, Model Type) combination.'
+  - name: CustomFormField
+    description: >-
+      Reusable, form-independent field definition. Types include drop-down, radio, text, textarea,
+      date, url and LDAP-user. Priority is mandatory / priority / optional — "priority" fields
+      affect the governance score until completed.
+    note: 'Fields copied into forms are NOT kept in sync with the source custom field.'
+  - name: Monitor
+    description: A test or monitor (out-of-the-box or custom) run against a model; produces test results.
+  - name: TestResult
+    description: Result of a systematic test job, filterable by segment and surfaced on the Compliance Dashboard heatmap.
+  - name: GovernanceScore
+    description: Administratively configured score reflecting completeness of governance fields on a Use Case / Implementation.
+  - name: Group
+    description: >-
+      Enterprise IdP / AD / LDAP group. Holds RWX permissions over entity collections; the unit of
+      multi-tenancy and model isolation.
+relationships:
+  - { from: StoredModel(USE_CASE), to: StoredModel(Implementation), type: has_many, via: 'use case -> implementations' }
+  - { from: StoredModel, to: Snapshot, type: has_many, via: 'immutable versions of the implementation' }
+  - { from: StoredModel, to: Asset, type: has_many, via: 'model assets and attachments' }
+  - { from: StoredModel, to: Schema, type: has_many, via: 'input/output schema definitions' }
+  - { from: StoredModel, to: ApplicationForm, type: has_one, via: 'modelMetaData.custom answers' }
+  - { from: ApplicationForm, to: CustomFormField, type: has_many, via: 'form sections/fields' }
+  - { from: Snapshot, to: Asset, type: has_many, via: 'immutable copy or reference' }
+  - { from: Snapshot, to: Job, type: has_many, via: 'test jobs run for this snapshot' }
+  - { from: Snapshot, to: TestResult, type: has_many, via: 'systematic test results' }
+  - { from: Snapshot, to: DeployedModel, type: has_many, via: 'deployment into a runtime' }
+  - { from: Snapshot, to: MLC, type: has_many, via: 'lifecycle triggered on snapshot creation' }
+  - { from: DeployedModel, to: Runtime, type: belongs_to, via: 'target runtime matched by Model Service Tag + stage' }
+  - { from: Job, to: Runtime, type: belongs_to, via: 'executing engine' }
+  - { from: Job, to: Asset, type: has_many, via: 'input/output data assets' }
+  - { from: Monitor, to: TestResult, type: has_many, via: 'monitor output' }
+  - { from: StoredModel, to: AuditRecord, type: has_many, via: 'change history for the object' }
+  - { from: StoredModel, to: Group, type: belongs_to, via: 'Access Group / entity owner (RWX)' }
+  - { from: Runtime, to: Group, type: belongs_to, via: 'modelop.runtime.group' }
+  - { from: StoredModel, to: GovernanceScore, type: has_one, via: 'completeness of priority fields' }
+id_conventions:
+  format: uuid
+  examples:
+    - 'ffd6eec2-a1be-43af-9ceb-012d1a9628bc  (StoredModel id, from the Audit Logging example)'
+    - '00000000-0000-0000-0000-000000000000  (model id placeholder in the CLI Reference)'
+  note: 'No typed id prefixes (stripe-style `mod_`) are used; ids are bare UUIDs.'
+render:
+  subway: null
+  note: 'No subway/ diagram exists for this provider.'

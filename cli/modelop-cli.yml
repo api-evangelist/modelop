@@ -1,0 +1,94 @@
+generated: '2026-08-25'
+method: searched
+source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993475/ModelOp+CLI+Reference
+checked: '2026-08-25'
+name: moc
+title: ModelOp Center CLI
+summary: >-
+  `moc` is ModelOp's first-party command-line client for ModelOp Center. It is the documented
+  terminal path for registering models, attaching assets, managing snapshots and deployments, and
+  running batch jobs against a ModelOp Center instance. It is the closest thing ModelOp publishes
+  to a public client library — there is no registry-distributed SDK for ModelOp Center.
+install:
+  methods:
+    - kind: binary-download
+      note: >-
+        Download the Darwin / Linux / Windows binary from the CLI Reference page, make it
+        executable (chmod 755 on Darwin, chmod +x on Linux), and place it on PATH
+        (docs recommend /usr/local/bin/).
+      pinned: false
+      registry: null
+  first_run: moc init <URL of ModelOp Center>
+  first_run_note: >-
+    `moc init` requires a URL with an http scheme pointing at the customer's own ModelOp Center
+    deployment. When ModelOp Center runs in OAuth2 secured mode, `moc init` prompts for a
+    case-sensitive username and password.
+  verify: moc help
+authentication:
+  model: oauth2-oidc
+  note: >-
+    The `credentials` command group exists only when ModelOp Center is configured with OAuth2 for
+    security. See authentication/modelop-authentication.yml.
+global_flags:
+  - flag: -h, --help
+    description: Help for a command.
+  - flag: -v, --version
+    description: Print CLI version information.
+commands:
+  - name: asset
+    description: Manage assets for models.
+    subcommands:
+      - name: add
+        synopsis: moc asset add <model name or id> <path to file> [--name] [--external | --force] [--region] [--verbose]
+        description: Add an asset (attachment) to an existing model.
+        flags:
+          - '-e, --external — store in configured external storage (required over 10 MB); accepts http, https, s3, s3n, s3a links'
+          - '-f, --force — store in model-manage under 10 MB, external storage otherwise'
+          - '--name — override the stored asset name'
+          - '--region — region for a linked asset'
+          - '-V, --verbose'
+          - 'role flags: --model-source, --training-data, --test-data, --comparator-data, --weights-file, --model-binary, --result-comparator'
+      - name: ls
+        synopsis: moc asset ls <model name or id>
+        description: List assets for a given model.
+  - name: credentials
+    description: Manage credentials with the CLI. Required only when ModelOp Center uses OAuth2 for security.
+  - name: deployment
+    description: Manage deployed models (DeployedModels) in ModelOp Center.
+  - name: init
+    description: Configure the CLI to point at a specific ModelOp Center instance. Requires a URL with an http scheme. Run before any other command except help.
+  - name: iterative
+    description: Iterative development and testing with the ModelOp engine (runtime).
+  - name: job
+    description: Manage jobs in ModelOp Center.
+  - name: mlc
+    description: Run Model Life Cycle (MLC) service related commands.
+  - name: model
+    description: Manage models in ModelOp Center.
+  - name: schema
+    description: Manage schemas.
+  - name: show
+    description: Output the configuration written by `moc init`.
+  - name: snapshot
+    description: Manage snapshots (model versions) for a given model in ModelOp Center.
+  - name: help
+    description: Help about any command. `moc help <command>` prints man-page-format help.
+key_flows:
+  - flow: Register a model and attach assets
+    steps:
+      - moc init <modelop-center-url>
+      - moc model ls
+      - moc asset add <model-id> attachment.zip --model-source
+      - moc asset ls <model-id>
+  - flow: Version and operationalize
+    steps:
+      - moc snapshot ... (create a snapshot; a Model Life Cycle is typically triggered on snapshot)
+      - moc deployment ... (manage the resulting DeployedModel)
+      - moc job ... (run/track batch jobs)
+companion_utility:
+  name: ModelOp Runtime Test Utility
+  docs: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993497/ModelOp+Runtime+Test+Utility
+distribution_note: >-
+  The binary is NOT published to any package registry (no PyPI, npm, Homebrew tap, Chocolatey or
+  Go module was found). The download links on the CLI Reference page are unpinned, so no version
+  can be recorded — see packages/modelop-packages.yml unregistered_distributions.

@@ -1,0 +1,95 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159992192/Release+Notes
+  + https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993090/Technical+Guides
+  + live probes of status./trust. subdomains on modelop.com
+checked: '2026-08-25'
+summary: >-
+  ModelOp Center is customer-deployed enterprise software, and its lifecycle posture reflects
+  that: a well-kept public release history and a versioned documentation hub, but no status page
+  (there is no ModelOp-operated SaaS to have status), no published deprecation or sunset policy,
+  and no SLA document on the public site.
+versioning:
+  scheme: 'major.minor[.patch][-hotfixN]'
+  current: '3.4'
+  api_version_in_path: false
+  supported_versions_documented: false
+  docs_per_version: true
+  docs_spaces:
+    - { version: '3.4', space: MDHV, url: 'https://modelopdocs.atlassian.net/wiki/spaces/MDHV' }
+    - { version: '3.3', space: dv33, url: 'https://modelopdocs.atlassian.net/wiki/spaces/dv33' }
+    - { version: '3.2', space: dv32, url: 'https://modelopdocs.atlassian.net/wiki/spaces/dv32' }
+    - { version: '3.1', space: dv301, url: 'https://modelopdocs.atlassian.net/wiki/spaces/dv301' }
+    - { version: '3.0', space: dv30, url: 'https://modelopdocs.atlassian.net/wiki/spaces/dv30' }
+    - { version: '2.5', space: dv25, url: 'https://modelopdocs.atlassian.net/wiki/spaces/dv25' }
+    - { version: '2.4', space: dv24, url: 'https://modelopdocs.atlassian.net/wiki/spaces/dv24' }
+    - { version: '2.3', space: v23, url: 'https://modelopdocs.atlassian.net/wiki/spaces/v23' }
+    - { version: '2.2', space: V22, url: 'https://modelopdocs.atlassian.net/wiki/spaces/V22' }
+    - { version: '2.1', space: DV21, url: 'https://modelopdocs.atlassian.net/wiki/spaces/DV21' }
+    - { version: '2.0', space: VDP, url: 'https://modelopdocs.atlassian.net/wiki/spaces/VDP' }
+  note: >-
+    Eleven live documentation spaces, one per minor release, all publicly readable. That is a
+    genuinely strong versioned-docs posture and it is the mechanism a customer on an older release
+    uses in place of a deprecation policy.
+changelog:
+  url: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159992192/Release+Notes
+  artifact: changelog/modelop-changelog.yml
+  machine_readable: partial
+  machine_readable_note: >-
+    No feed, but the Confluence Cloud anonymous REST API serves the page bodies, so the history is
+    machine-capturable even though it is not machine-published.
+status_page:
+  exists: false
+  pointer_emitted: false
+  probed:
+    - url: https://status.modelop.com/
+      status: 0
+      note: DNS does not resolve.
+    - url: https://trust.modelop.com/
+      status: 0
+      note: DNS does not resolve.
+  basis: >-
+    No StatusPage pointer is emitted. ModelOp Center runs inside the customer's own infrastructure
+    (Helm chart on Kubernetes), so there is no ModelOp-operated runtime whose availability a
+    status page could report. This is an honest structural absence, not a gap in the vendor's
+    operations posture, and it is recorded here so a later round does not "repair" it by pointing
+    at an unrelated page.
+deprecation:
+  policy_documented: false
+  pointer_emitted: false
+  sunset_header_rfc8594: false
+  deprecated_operations: []
+  observed_deprecations:
+    - item: ModelOp Runtime environment variables (MODELOP_LOG_LEVEL, MODELOP_GATEWAY_LOCATION, MODELOP_ENGINE_NAME, MODELOP_API_PORT, MODELOP_ROUNDTRIP_DEFAULT_TIMEOUT, MODELOP_ENGINE_IP, MODELOP_ENGINE_HOSTNAME, MODELOP_ENGINE_USE_HTTPS, MODELOP_EUREKA_HOSTNAME, MODELOP_EUREKA_PORT)
+      status: deprecated
+      superseded_by: Spring Cloud Config properties (modelop.runtime.*, spring.*, eureka.*)
+      source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159997056/ModelOp+Runtime+Details
+      note: >-
+        The docs mark these "(deprecated)" in the configuration table, along with the
+        application.json configuration file. This is real, dated-by-release deprecation practice
+        at the CONFIGURATION layer. It is not an API deprecation policy and no Deprecation pointer
+        is emitted on the strength of it.
+    - item: FastScore SDK and CLI (PyPI `fastscore`, `fastscore-cli`)
+      status: superseded
+      superseded_by: the `moc` CLI for ModelOp Center
+      note: >-
+        Never formally announced as deprecated; both packages remain installable from PyPI at
+        v1.10.3 (2020-01-17) with no deprecation marker. See packages/modelop-packages.yml.
+sla:
+  published: false
+  note: No SLA, uptime commitment or support-tier document is published on www.modelop.com.
+support:
+  channel: https://www.modelop.com/contact
+  channel_status: 200
+  community_forum: false
+  probed:
+    - url: https://community.modelop.com/
+      status: 0
+      note: DNS does not resolve.
+    - url: https://support.modelop.com/
+      status: 0
+      note: DNS does not resolve.
+  note: >-
+    Support is a contact form plus the (customer-specific) account team. No public help centre,
+    forum, Slack or Discourse was found.

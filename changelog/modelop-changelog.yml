@@ -1,0 +1,117 @@
+generated: '2026-08-25'
+method: searched
+source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159992192/Release+Notes
+checked: '2026-08-25'
+summary: >-
+  ModelOp publishes a real, complete, publicly readable release-notes history for ModelOp Center —
+  27 release-notes pages inside the documentation hub covering every release from V1 (1.6-1.10)
+  through the current V3.4 and its hotfixes. Each page carries a "What's New" narrative and a
+  "Full List of Enhancements" section. What it does NOT carry is a per-entry publication DATE on
+  the page body: dates come only from the Confluence page version timestamp, and there is no RSS,
+  Atom or JSON feed.
+scheme:
+  product_versioning: 'major.minor[.patch][-hotfixN]'
+  api_versioning: none-in-path
+  docs_versioning: >-
+    One Confluence space per minor release — 11 spaces from V2.0 (VDP) through V3.4 (MDHV) — so a
+    customer on an older release reads a frozen copy of that release's documentation.
+  note: >-
+    The API path carries no version segment; the release train is the product, not the API.
+current_version:
+  version: '3.4'
+  channel: LATEST
+  page: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3160309761/V3.4+Release+Notes+(LATEST)
+  page_last_modified: '2026-07-15'
+  latest_hotfix: 3.4-hotfix2
+feeds:
+  rss: null
+  atom: null
+  json: null
+  probed:
+    - url: https://www.modelop.com/blog/rss.xml
+      status: 404
+    - url: https://www.modelop.com/rss.xml
+      status: 404
+    - url: https://www.modelop.com/feed.xml
+      status: 404
+  note: >-
+    The docs hub is Atlassian Confluence Cloud; its anonymous REST API
+    (/wiki/rest/api/content/{id}) IS readable without credentials, which is how the entries below
+    were captured. That is a machine-readable path, but it is not a feed and it is not advertised.
+entries:
+  - version: '3.4-hotfix2'
+    date: '2026-04-08'
+    date_basis: confluence-page-version
+    breaking: false
+    type: fix
+    page: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3421798401/V3.4-hotfix2+Release+Notes
+    highlights:
+      - Inventory column and filter for Primary Driver, including CSV export.
+      - Primary Driver added to the default Use Case Intake Form (defaults to "Unassigned").
+      - Custom-metadata text search on the Inventory page filter dialog.
+      - Fixed a Use Case Dashboard chart-legend DIV overrun when toggling Risk tier filters.
+  - version: '3.4-hotfix1'
+    date: null
+    date_basis: not-captured
+    breaking: false
+    type: fix
+    page: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3356557313/V3.4-hotfix1+Release+Notes
+  - version: '3.4'
+    date: '2026-07-15'
+    date_basis: confluence-page-version
+    breaking: false
+    type: feature
+    page: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3160309761/V3.4+Release+Notes+(LATEST)
+    highlights:
+      - >-
+        Enhanced user experience across Inventory, MyWork, Model Details and Notifications/
+        Approvals, plus a new AI "Use Case" dashboard.
+      - >-
+        Inventory personalization: configurable columns (including customer custom metadata
+        fields), advanced AND/OR filtering across all fields, and saveable/default views.
+      - Notifier "Reminder" service for outstanding issues, risks, expiring exemptions and reviews, on a configurable schedule.
+      - New Java-based monitoring execution runtime for scalability and simpler troubleshooting.
+      - Audit records surfaced in a "Recent Activity" section on the model page.
+  - version: '3.4.3'
+    date: '2025-12-19'
+    date_basis: confluence-page-version
+    breaking: false
+    type: feature
+    page: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159992590/V3.4.3+Release+Notes
+    highlights:
+      - Internationalization — Japanese, Spanish, Portuguese and English UI languages.
+      - Custom Forms — date-selector and URL field types, tooltips, required-vs-optional fields, default values.
+      - LDAP lookup to assign enterprise users to Use Case or Model fields.
+      - Compliance Dashboard drill-down to the specific failing test result; test-result filters by segment.
+      - PowerBI Server support (scheduled refresh/republish) and PowerBI custom form data.
+    note: >-
+      The page body's own "What's New" opens "ModelOp Center v3.3.3 is a minor release..." while
+      the page is titled V3.4.3 — a provider-side inconsistency, recorded as observed and not
+      corrected here.
+prior_releases_indexed:
+  - '3.3.3-hotfix1'
+  - '3.3.2-hotfix3'
+  - '3.3.2'
+  - '3.3.1'
+  - '3.3'
+  - '3.2.1-hotfix1'
+  - '3.2.1'
+  - '3.2'
+  - '3.1'
+  - '3.0'
+  - '2.5'
+  - '2.4'
+  - '2.3'
+  - '2.2.3.1'
+  - '2.2.3'
+  - '2.2.2.1'
+  - '2.2.2'
+  - '2.2.1'
+  - '2.2'
+  - '2.1.2'
+  - '2.1'
+  - 'V1 (1.6-1.10)'
+entries_note: >-
+  The four entries above are the current release train, captured verbatim from the release-notes
+  pages. The 22 prior releases are indexed by version and page rather than transcribed — recent
+  window only, per the pipeline contract.

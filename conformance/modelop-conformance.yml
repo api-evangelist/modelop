@@ -1,0 +1,211 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  ModelOp Documentation Hub V3.4 (https://modelopdocs.atlassian.net/wiki/spaces/MDHV) —
+  Oauth2 Integration, SAML 2.0 IdP Integration, Supported OAuth 2.0 Identity Providers,
+  Update an Existing Model (StoredModel type enum), MLC Authorization mechanisms,
+  ModelOp Runtime Details; plus https://www.modelop.com/llms.txt,
+  https://www.modelop.com/robots.txt and live /.well-known probes on www.modelop.com.
+checked: '2026-08-25'
+summary: >-
+  ModelOp Center conforms to the enterprise identity standards (OAuth 2.0 + OIDC, SAML 2.0) and,
+  more interestingly for its market, to a set of model-representation standards it inherited from
+  Open Data Group — PFA, PMML-adjacent scoring, DMN/CMMN and BPMN are all first-class model or
+  workflow types in the platform's own type system. It conforms to none of the HTTP-hygiene
+  standards (no RFC 9457 problem details, no RFC 9116 security.txt, no RFC 8594 sunset headers,
+  no /.well-known documents of any kind).
+
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      "ModelOp Center integrates with OAuth 2.0 OIDC to enable enterprise-grade authentication and
+      access control" — carried across the web UI, CLI, APIs and Jupyter/RStudio plugins.
+      Source: MDHV/3159996285.
+  - id: oidc
+    conforms: true
+    evidence: >-
+      OAuth2 OIDC is the documented mode; five OIDC authorization servers have dedicated how-to
+      pages (PingFederate, Amazon Cognito, Okta, Microsoft Entra ID, Keycloak).
+      Source: MDHV/3159996790.
+  - id: oidc-discovery
+    conforms: false
+    evidence: >-
+      No /.well-known/openid-configuration is served by ModelOp — and correctly so: the
+      authorization server is the CUSTOMER's IdP, not ModelOp. Recorded as non-conformance of the
+      modelop.com host only, not as a product defect.
+  - id: jwt
+    conforms: true
+    evidence: 'Supported Access Tokens: "The current architecture design supports different token formats, including: JWT". Source: MDHV/3159996285.'
+  - id: saml2
+    conforms: true
+    evidence: >-
+      SAML 2.0 IdP integration via a separately installed saml-support-service.
+      Source: MDHV/3159996249 + MDHV/3159996273.
+  - id: ldap
+    conforms: true
+    evidence: >-
+      Group membership and user lookup are resolved against the enterprise Active Directory /
+      LDAP; the LDAP proxy service supports standard LDAP filter syntax.
+      Sources: MDHV/3159996285, MDHV/3159991960.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      No problem+json media type, error registry or error envelope is published anywhere in the
+      documentation hub. The only status code named in the docs is 200.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: 'GET https://www.modelop.com/.well-known/security.txt -> 404 (2026-08-25).'
+  - id: rfc8615-well-known
+    conforms: false
+    evidence: >-
+      Every /.well-known/* path on www.modelop.com returns 404 with the body
+      "Invalid .well-known request". See well-known/modelop-well-known.yml.
+  - id: rfc9727-api-catalog
+    conforms: false
+    evidence: 'GET https://www.modelop.com/.well-known/api-catalog -> 404 (2026-08-25).'
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No deprecation or sunset policy is published; no Deprecation/Sunset header is documented.
+  - id: openapi
+    conforms: partial
+    evidence: >-
+      ModelOp Center ships Swagger UI (springdoc, multi-group via urls.primaryName) inside every
+      deployment, so an OpenAPI document demonstrably exists — the docs walk users through
+      "Try it Out" against it. It is NOT published at any public URL, so no OpenAPI can be
+      captured, validated or scored. Contract exists; contract is not discoverable.
+  - id: llms-txt
+    conforms: true
+    evidence: >-
+      https://www.modelop.com/llms.txt returns 200 text/plain, 7,869 bytes, correct llms.txt
+      shape (H1 + blockquote summary + sectioned link lists including an "## Optional" section).
+      Saved verbatim to llms/modelop-llms.txt.
+  - id: content-signal
+    conforms: true
+    evidence: >-
+      https://www.modelop.com/robots.txt carries a Content-Signal directive
+      ("Content-Signal: search=yes, ai-input=yes, ai-train=no") plus explicit Allow rules for
+      GPTBot, ClaudeBot, Claude-User, PerplexityBot, Google-Extended and CCBot. This is a real
+      machine-readable AI-usage preference signal, expressed in robots.txt rather than in a
+      /.well-known document.
+  - id: mcp
+    conforms: false
+    evidence: No ModelOp MCP server was found on any host, in the GitHub org, or in the docs hub.
+  - id: a2a
+    conforms: false
+    evidence: '/.well-known/agent-card.json and /.well-known/agent.json both 404 on www.modelop.com and modelop.com.'
+  - id: graphql
+    conforms: false
+    evidence: No GraphQL surface is documented or discoverable.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      The ModelOp Runtime supports Kafka input/output streams, so an event surface exists inside a
+      deployment, but no AsyncAPI document and no webhook catalogue is published.
+      See asyncapi/modelop-runtime-streams.yml.
+  - id: hal
+    conforms: true
+    evidence: >-
+      Published response examples use the HAL envelope (`_embedded.auditRecords`, `_links`),
+      consistent with a Spring Data REST surface. See conventions/modelop-conventions.yml.
+  - id: tls
+    conforms: true
+    evidence: See security/modelop-domain-security.yml (probed).
+
+# ---------------------------------------------------------------------------
+# DOMAIN-STANDARD SIGNATURE (0.12.0 domain_standard_conformance)
+# Read from the platform's OWN type system and workflow engine, not from a marketing claim.
+# ---------------------------------------------------------------------------
+domain_standards:
+  market: AI/ML model governance, model risk management and model execution
+  signatures:
+    - id: pfa
+      name: PFA — Portable Format for Analytics (Data Mining Group)
+      conforms: true
+      confidence: high
+      evidence: >-
+        `PFA`, `PFA_YAML` and `PFA_PPFA` are three of the valid StoredModel `modelMetaData.type`
+        values enumerated in the docs (MDHV/3159984494), i.e. PFA is a first-class model type in
+        the contract's own enum — not a prose claim. ModelOp additionally maintains the two
+        reference PFA implementations in its GitHub org: `hadrian` ("Implementations of the
+        Portable Format for Analytics (PFA)") and `augustus`, both inherited from Open Data Group,
+        which co-authored the standard.
+      spec_location: 'StoredModel modelMetaData.type enum; https://github.com/modelop/hadrian'
+    - id: dmn
+      name: DMN — Decision Model and Notation (OMG)
+      conforms: true
+      confidence: high
+      evidence: '`DMN` is a valid StoredModel modelMetaData.type value (MDHV/3159984494).'
+    - id: cmmn
+      name: CMMN — Case Management Model and Notation (OMG)
+      conforms: true
+      confidence: high
+      evidence: '`CMMN` is a valid StoredModel modelMetaData.type value (MDHV/3159984494).'
+    - id: bpmn
+      name: BPMN 2.0 (OMG)
+      conforms: true
+      confidence: high
+      evidence: >-
+        Model Life Cycles are BPMN processes executed by an embedded Camunda engine; the
+        mlc-service exposes a REST action literally named "Deploying BPMNs" and gates it on group
+        membership (MDHV/3159996726). The Camunda WebApp is shipped in-product.
+    - id: mlflow
+      name: MLflow model format
+      conforms: true
+      confidence: medium
+      evidence: '`MLFLOW` is a valid StoredModel modelMetaData.type value (MDHV/3159984494).'
+    - id: avro
+      name: Apache Avro (model I/O schemas)
+      conforms: true
+      confidence: medium
+      evidence: >-
+        ModelOp maintains `python-quickavro` ("a fast Python Avro library") in its GitHub org and
+        the platform manages per-model input/output Schemas as a first-class versioned asset.
+    - id: scim
+      conforms: false
+      evidence: >-
+        No SCIM user-provisioning endpoint is documented; identity comes from the customer's
+        AD/LDAP through OIDC instead.
+
+# Frameworks ModelOp's PRODUCT implements as governance templates. These describe what the
+# software helps a CUSTOMER comply with. They are NOT ModelOp's own corporate certifications and
+# are deliberately kept out of standards[] so they cannot be read as provider conformance.
+domain_frameworks_supported:
+  claim_source: https://www.modelop.com/llms.txt + https://www.modelop.com/ai-governance/ai-regulations-standards
+  frameworks:
+    - EU AI Act
+    - US OCC SR 11-7 (model risk management)
+    - NIST AI Risk Management Framework (AI RMF)
+    - ISO/IEC 42001 (AI management systems)
+    - OSFI E-23 (with AI extensions)
+    - Annual Model Attestation
+    - AI TRiSM
+  note: >-
+    ModelOp states 25+ out-of-the-box governance process templates covering these frameworks.
+    Product capability, evidenced only by the vendor's own marketing pages.
+
+# ---------------------------------------------------------------------------
+compliance_pointer:
+  emitted: false
+  basis: >-
+    No `Compliance` pointer is wired in apis.yml. The compliance_published check asks whether the
+    PROVIDER publishes its own compliance programme (SOC 2, ISO 27001, PCI, HIPAA, FedRAMP), and
+    no such page, trust centre or certification claim was found: trust.modelop.com does not
+    resolve, /security and /trust return 404, and the sitemap (452 URLs) contains no compliance,
+    trust or certification page. ModelOp publishes governance templates for its CUSTOMERS'
+    regulatory obligations, which is a different thing and must not be credited as its own.
+  probed:
+    - url: https://www.modelop.com/security
+      status: 404
+    - url: https://www.modelop.com/trust
+      status: 404
+    - url: https://trust.modelop.com/
+      status: 0
+      note: DNS does not resolve.
+third_party_recognition:
+  - claim: Certified as a CHAI (Coalition for Health AI) Assurance Resource Provider
+    source: https://www.modelop.com/blog/modelop-certified-as-a-chai-assurance-resource-provider
+    note: >-
+      A sector body's recognition of ModelOp as an assurance provider, announced on ModelOp's own
+      blog. Recorded for completeness; it is not an information-security certification and is not
+      used to justify a Compliance pointer.

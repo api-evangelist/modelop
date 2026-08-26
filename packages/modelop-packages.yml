@@ -1,0 +1,115 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  Registry sweeps of PyPI (pypi.org/pypi/<pkg>/json), npm (registry.npmjs.org), RubyGems,
+  crates.io, NuGet, Maven Central and pkg.go.dev for a first-party ModelOp client library,
+  plus github.com/modelop (149 public repos) and the public ModelOp Documentation Hub
+  (https://modelopdocs.atlassian.net/wiki/spaces/MDHV).
+summary:
+  first_party_registry_package_count: 2
+  first_party_current_product_sdk_count: 0
+  third_party_package_count: 0
+  note: >-
+    ModelOp publishes NO client SDK for its CURRENT product (ModelOp Center / Enterprise AI
+    Command Center) in any public package registry. The only first-party packages on a registry
+    are `fastscore` and `fastscore-cli`, the SDK and CLI for FastScore — the predecessor product
+    from Open Data Group, the company that renamed itself ModelOp. Both were last published
+    2020-01-17 (v1.10.3) and neither wraps the current ModelOp Center REST API.
+
+# WHY NO `SDKs` POINTER IS EMITTED IN apis.yml
+# The two PyPI packages below are genuinely first-party (ModelOp/Open Data Group authored them and
+# the source repos live under github.com/modelop). They are also for a product ModelOp no longer
+# sells, and their last release predates the current ModelOp Center API by more than six years.
+# Wiring `type: SDKs` would credit ModelOp with a client library for an API it does not ship one
+# for. The ergonomics sdk_count check must read a genuine zero here. This is a deliberate
+# decision, not an oversight — do not "repair" it by adding the pointer.
+sdk_pointer:
+  emitted: false
+  basis: >-
+    Zero first-party SDKs exist for the current ModelOp Center API. The integration path ModelOp
+    documents is the `moc` CLI (see cli/modelop-cli.yml), the per-deployment Swagger UI, and the
+    Jupyter / RStudio plugins — none of which is distributed through a package registry.
+
+packages:
+  - language: python
+    registry: pypi
+    name: fastscore
+    url: https://pypi.org/project/fastscore/
+    install: pip install fastscore
+    official: true
+    version: 1.10.3
+    published: '2020-01-17'
+    status: legacy
+    product: FastScore (predecessor product; not ModelOp Center)
+    repository: https://github.com/modelop/fastscore-sdk
+    description: >-
+      "FastScore SDK" on PyPI. Python client for the FastScore engine API (model/schema/stream/
+      job/attachment resources). The repo also carries R (fastscoRe) and Scala clients that were
+      never published to CRAN or Maven Central.
+    decay_signal: >-
+      Last release 2020-01-17. The GitHub source repo was last pushed 2022-03-22 and is not
+      archived, so it presents as maintained on GitHub while the registry artifact is 6+ years old.
+  - language: python
+    registry: pypi
+    name: fastscore-cli
+    url: https://pypi.org/project/fastscore-cli/
+    install: pip install fastscore-cli
+    official: true
+    version: 1.10.3
+    published: '2020-01-17'
+    status: legacy
+    product: FastScore (predecessor product; not ModelOp Center)
+    repository: https://github.com/modelop/fastscore-cli
+    description: >-
+      "FastScore CLI" on PyPI. Superseded by the `moc` CLI for ModelOp Center, which is NOT
+      distributed via PyPI — see cli/modelop-cli.yml.
+    decay_signal: >-
+      Last release 2020-01-17; GitHub source last pushed 2020-01-17.
+
+# Distributed outside any registry — recorded so the absence of a registry entry is not read as
+# the absence of the artifact.
+unregistered_distributions:
+  - name: moc (ModelOp Center CLI)
+    kind: cli-binary
+    registry: null
+    version: null
+    published: null
+    distribution: >-
+      Darwin / Linux / Windows binaries linked directly from the ModelOp CLI Reference page in the
+      documentation hub. The download links are not version-pinned and the docs state no version
+      number, so a consumer cannot tell which build they are getting — recorded as version: null
+      because it was checked, not because it was skipped.
+    docs: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993475/ModelOp+CLI+Reference
+    official: true
+  - name: ModelOp Jupyter plugin
+    kind: ide-plugin
+    registry: null
+    version: '2.1'
+    published: null
+    distribution: >-
+      Installed per-deployment following the Jupyter plugin installation instructions in the docs
+      hub; not published to PyPI or npm. Version 2.1 is named by its own release-notes page.
+    docs: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159994763/Jupyter+plugin+installation+and+configuration+instructions
+    official: true
+  - name: ModelOp RStudio addin
+    kind: ide-plugin
+    registry: null
+    version: null
+    published: null
+    distribution: >-
+      Installed per-deployment per the RStudio addin installation page; not published to CRAN.
+    docs: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159995102/RStudio+addin+installation+and+configuration
+    official: true
+
+github_organization:
+  found: true
+  url: https://github.com/modelop
+  public_repos: 149
+  note: >-
+    Verified via api.github.com/orgs/modelop — name "ModelOp", email info@modelop.com,
+    blog https://www.modelop.com/, location Illinois USA, created 2013-03-25 (as Open Data Group).
+    The org is overwhelmingly example/lab models and custom monitors used in ModelOp training
+    labs, plus the legacy FastScore SDK/CLI and the PFA reference implementations (hadrian,
+    augustus) inherited from Open Data Group. No ModelOp Center client SDK is published there.
+
+third_party_packages: []

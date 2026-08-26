@@ -1,23 +1,141 @@
 aid: modelop
 name: ModelOp
-description: 'ModelOp is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  ModelOp is enterprise software for governing and operationalizing artificial intelligence at
+  scale. Founded as Open Data Group and headquartered in Chicago, Illinois, it sells an "AI system
+  of record" — the Enterprise AI Command Center, powered by the ModelOp AI Delivery Engine (MADE)
+  and delivered as ModelOp Center — that lets large regulated organizations inventory every AI
+  asset, automate the model lifecycle from intake through retirement, enforce governance and
+  regulatory policy, and report on cost, risk and ROI across traditional machine learning,
+  generative AI and agentic AI. The platform is customer-deployed (Helm chart on Kubernetes) with
+  a REST-compliant microservices architecture, a `moc` CLI, OAuth 2.0/OIDC authentication against
+  the enterprise's own identity provider, and 50+ integrations spanning cloud, AI/ML platforms,
+  data, BI, GRC, ITSM and security systems. Because ModelOp Center runs inside the customer's own
+  infrastructure, its Swagger UI and OpenAPI document are served only from a customer instance and
+  are not published at any public URL.
+image: https://cdn.prod.website-files.com/66205eb2534d2143f98716a4/6a1e0cff57f08839578807be_Homepage%20Image%20for%20Website%20Metadata%20-%201200x630%20v2.png
 url: https://raw.githubusercontent.com/api-evangelist/modelop/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-25'
 modified: '2026-08-25'
 tags:
-- Company
-apis: []
+- AI Governance
+- Model Risk Management
+- Machine Learning
+- MLOps
+- ModelOps
+- AI Lifecycle Automation
+- Enterprise Software
+- Compliance
+- Model Monitoring
+- Governance Risk and Compliance
+- Artificial Intelligence
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: ModelOp Center REST API
+  description: >-
+    The REST-compliant, microservices-based API of ModelOp Center. It exposes the governance
+    inventory (StoredModel entities — Use Cases and Model Implementations), snapshots (immutable
+    model versions), assets, schemas, jobs, deployments, runtimes, Model Life Cycle (BPMN) signals,
+    audit records and application/custom forms. ModelOp Center is customer-deployed, so the API is
+    served from the customer's own base URL and its Swagger UI lives at
+    <base>/swagger-ui/webjars/swagger-ui/index.html?urls.primaryName=model-manage. No OpenAPI
+    document is published at a public URL, so none is captured in this repo.
+  humanURL: https://modelopdocs.atlassian.net/wiki/spaces/MDHV
+  baseURL: https://{modelop-base-url}/api
+  x-base-url-note: >-
+    TEMPLATED ON PURPOSE — do not "repair" this to www.modelop.com. ModelOp Center is
+    customer-deployed software; every customer runs the API on their own host, which is what
+    the docs mean by <<MODELOP-BASE-URL>> and <<YOUR-BASE-URL>>. ModelOp operates no public
+    API host: api.modelop.com, developer.modelop.com and docs.modelop.com all fail DNS
+    resolution (checked 2026-08-25). Substituting the marketing site would name a host that
+    serves no API.
+  tags:
+  - AI Governance
+  - Model Risk Management
+  - ModelOps
+  properties:
+  - type: Documentation
+    url: https://modelopdocs.atlassian.net/wiki/spaces/MDHV
+  - type: GettingStarted
+    url: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159982123/Getting+Started+with+ModelOp+Center
+  - type: Authentication
+    url: authentication/modelop-authentication.yml
+  - type: Conventions
+    url: conventions/modelop-conventions.yml
+  - type: DataModel
+    url: data-model/modelop-data-model.yml
+  - type: CLI
+    url: cli/modelop-cli.yml
+  - type: RateLimits
+    url: rate-limits/modelop-rate-limits.yml
 common:
+- type: DomainSecurity
+  url: security/modelop-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://www.modelop.com/
+- type: Documentation
+  url: https://modelopdocs.atlassian.net/wiki/spaces/MDHV
+- type: GettingStarted
+  url: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159982123/Getting+Started+with+ModelOp+Center
+- type: Support
+  url: https://www.modelop.com/contact
+- type: Blog
+  url: https://www.modelop.com/blog
+- type: GitHubOrganization
+  url: https://github.com/modelop
+- type: PrivacyPolicy
+  url: https://www.modelop.com/privacy-policy
+- type: LLMsTxt
+  url: llms/modelop-llms.txt
+- type: Packages
+  url: packages/modelop-packages.yml
+- type: CLI
+  url: cli/modelop-cli.yml
+- type: Authentication
+  url: authentication/modelop-authentication.yml
+- type: Conventions
+  url: conventions/modelop-conventions.yml
+- type: Conformance
+  url: conformance/modelop-conformance.yml
+- type: ChangeLog
+  url: changelog/modelop-changelog.yml
+- type: Lifecycle
+  url: lifecycle/modelop-lifecycle.yml
+- type: DataModel
+  url: data-model/modelop-data-model.yml
+- type: Plans
+  url: plans/modelop-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/modelop-rate-limits.yml
+
+x-enrichment:
+  date: '2026-08-25'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Fifteen artifacts were captured from ModelOp's own public surface — a verbatim llms.txt, the
+    `moc` CLI reference, the OAuth2/OIDC authentication model, a 27-release changelog and eleven
+    versioned documentation spaces — but no machine-readable API contract exists to capture,
+    because ModelOp Center is customer-deployed and its Swagger UI is served only from a
+    customer's own instance at <base>/swagger-ui/webjars/swagger-ui/index.html.
+  evidence:
+    - url: https://www.modelop.com/llms.txt
+      status: 200
+    - url: https://modelopdocs.atlassian.net/wiki/spaces/MDHV
+      status: 200
+    - url: https://www.modelop.com/openapi.json
+      status: 404
+    - url: https://www.modelop.com/.well-known/api-catalog
+      status: 404
+  checked: '2026-08-25'

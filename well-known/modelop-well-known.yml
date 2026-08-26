@@ -1,0 +1,97 @@
+generated: '2026-08-25'
+method: probed
+source: live GET probes of /.well-known/* on every ModelOp host, 2026-08-25
+checked: '2026-08-25'
+summary: >-
+  ModelOp serves NO /.well-known documents on any host it controls. Every path on www.modelop.com
+  and modelop.com returns HTTP 404 with the body "Invalid .well-known request" — a genuine,
+  unambiguous negative (not an SPA catch-all, not a soft-404 200). There is no api host, docs host
+  or console host to probe: docs.modelop.com, api.modelop.com, developer.modelop.com,
+  support.modelop.com, help.modelop.com, status.modelop.com, trust.modelop.com,
+  community.modelop.com and academy.modelop.com all fail DNS resolution.
+pointer_basis: >-
+  NO WellKnown pointer and NO SecurityTxt pointer are emitted in apis.yml. Not one path returned a
+  200 carrying a real document, so a pointer would assert a surface ModelOp does not serve. This
+  file is a recorded ABSENCE, which is valid data — it is not evidence of a presence.
+adjacent_finding:
+  robots_txt:
+    url: https://www.modelop.com/robots.txt
+    status: 200
+    content_signal: 'search=yes, ai-input=yes, ai-train=no'
+    allowed_agents: [GPTBot, ClaudeBot, Claude-User, PerplexityBot, Google-Extended, CCBot]
+    sitemap: https://www.modelop.com/sitemap.xml
+    note: >-
+      ModelOp DOES publish a machine-readable AI-usage preference — but in robots.txt, via the
+      Content-Signal directive, not in a /.well-known document. Recorded here because it is the
+      closest thing to a consent/identity signal this provider serves, and because a reader of
+      this file would otherwise conclude ModelOp expresses no AI preference at all.
+hosts:
+  - host: https://www.modelop.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/openid-configuration
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/api-catalog
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/agent-card.json
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/agent.json
+        status: 404
+        body: 'Invalid .well-known request'
+  - host: https://modelop.com
+    note: 301-redirects to https://www.modelop.com for non-.well-known paths; serves the same 404 for /.well-known/*.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/openid-configuration
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/api-catalog
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/agent-card.json
+        status: 404
+        body: 'Invalid .well-known request'
+      - path: /.well-known/agent.json
+        status: 404
+        body: 'Invalid .well-known request'
+unresolvable_hosts:
+  - { host: docs.modelop.com, result: NXDOMAIN }
+  - { host: api.modelop.com, result: NXDOMAIN }
+  - { host: developer.modelop.com, result: NXDOMAIN }
+  - { host: help.modelop.com, result: NXDOMAIN }
+  - { host: support.modelop.com, result: NXDOMAIN }
+  - { host: status.modelop.com, result: NXDOMAIN }
+  - { host: trust.modelop.com, result: NXDOMAIN }
+  - { host: community.modelop.com, result: NXDOMAIN }
+  - { host: academy.modelop.com, result: NXDOMAIN }
+not_probed:
+  - host: 'modelopdocs.atlassian.net'
+    reason: >-
+      Atlassian-owned Confluence Cloud host, not a ModelOp-controlled host. Any /.well-known
+      document there would belong to Atlassian, so probing it would risk crediting ModelOp with
+      Atlassian's surface.

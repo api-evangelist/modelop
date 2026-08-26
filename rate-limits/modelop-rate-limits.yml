@@ -1,0 +1,46 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  Full-text search of the ModelOp Documentation Hub V3.4 (https://modelopdocs.atlassian.net/wiki/spaces/MDHV)
+  for "rate limit", "throttle", "quota", "429" and "Retry-After"; plus https://www.modelop.com/llms.txt
+checked: '2026-08-25'
+limit_count: 0
+summary: >-
+  ModelOp publishes NO API rate limits. A full-text search of the current documentation space
+  returns three hits for "rate limit" and all three are about the rate limits of THIRD-PARTY
+  systems ModelOp integrates with (ServiceNow, Jira) or an unrelated release note — none describes
+  a limit ModelOp Center itself enforces. No 429 status, no Retry-After, and no X-RateLimit-* or
+  RateLimit-* response header is documented anywhere.
+rate_limits: []
+response_headers:
+  documented: []
+  note: >-
+    No rate-limit response headers are documented. An agent has no runtime signal to back off on.
+exhaustion_status_code: null
+structural_note: >-
+  ModelOp Center runs inside the customer's own Kubernetes cluster, so the practical limits are
+  whatever the customer's own sizing allows rather than a vendor-enforced quota. The docs do carry
+  a "ModelOp Center Sizing Considerations" page
+  (https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993300/ModelOp+Center+Sizing+Considerations)
+  which is a capacity-planning guide, NOT a rate-limit contract, and it is not counted here.
+adjacent_documented_limits:
+  - limit: 10 MB
+    scope: model asset upload
+    behaviour: >-
+      Assets over 10 MB must be stored in configured external storage rather than inside
+      model-manage (`moc asset add --external`, or `--force` to choose automatically).
+    source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993475/ModelOp+CLI+Reference
+    note: A payload-size threshold, not a request-rate limit. Recorded so it is not mistaken for one.
+  - limit: 5000 ms
+    scope: ModelOp Runtime round-trip REST scoring call
+    behaviour: Default timeout for a synchronous round-trip scoring request; configurable via modelop.runtime.roundtrip-default-timeout.
+    source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159997056/ModelOp+Runtime+Details
+    note: A timeout, not a rate limit.
+third_party_rate_limits_referenced:
+  - system: ServiceNow
+    source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993730/Integrate+with+ServiceNow
+  - system: Jira
+    source: https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159993648/Integrate+with+JIRA
+note: >-
+  An honest zero — recorded because a measured absence is data. limit_count: 0 with this evidence
+  is a different fact from "not checked".

@@ -1,0 +1,56 @@
+generated: '2026-08-25'
+method: searched
+source: >-
+  Searches of github.com/modelop (149 public repos), the ModelOp Documentation Hub V3.4 full-text
+  index, https://www.modelop.com/llms.txt and the public web for a ModelOp MCP server; plus live
+  probes of /.well-known/* on every ModelOp host.
+checked: '2026-08-25'
+status: none
+summary: >-
+  ModelOp ships no Model Context Protocol server. No hosted/remote MCP endpoint exists, no stdio
+  package is published under any registry namespace, the documentation hub returns zero hits for
+  MCP, and the provider's own llms.txt — which is otherwise a thorough, hand-written index of the
+  whole public surface — does not mention one.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+candidate_tools:
+  derived: false
+  reason: >-
+    A candidate tool list is normally DERIVED from the provider's OpenAPI operations. ModelOp
+    publishes no fetchable OpenAPI — ModelOp Center is customer-deployed and its Swagger UI is
+    served only from a customer's own instance — so there are no operationIds to bind tools to.
+    Inventing a tool list from documentation prose would be fabrication, so none is written.
+pointer_basis: >-
+  NO `MCPServer` pointer is emitted in apis.yml. The pointer asserts that the provider operates an
+  MCP server; ModelOp does not. This file records the measured absence.
+tool_crosswalk:
+  emitted: false
+  reason: >-
+    A ToolCrosswalk requires at least two of {MCP tools, GraphQL fields, OpenAPI operations} to
+    bind together. ModelOp publishes none of them publicly, so there is nothing to cross-walk.
+searched:
+  - target: github.com/modelop
+    result: 'No MCP repo among 149 public repos (verified via api.github.com/orgs/modelop/repos).'
+  - target: 'ModelOp Documentation Hub V3.4 full-text search'
+    result: 'Zero results for "MCP", zero for "Model Context Protocol".'
+  - target: https://www.modelop.com/llms.txt
+    result: 'No MCP mention in the provider-authored 7,869-byte index.'
+  - target: registry.npmjs.org
+    result: 'No @modelop/* or modelop package.'
+  - target: pypi.org
+    result: 'No modelop / modelop-sdk / modelop-mcp package.'
+adjacent_agentic_positioning:
+  note: >-
+    ModelOp markets heavily on GOVERNING agentic AI and MCP-era risk — the AI Delivery Engine page
+    states it lets "AI agents plug into the end-to-end lifecycle", and the company published a
+    partnership post on zero-trust security for agentic AI with Kong. That is a product thesis
+    about governing other people's agents, not an agent-callable surface of its own. Recorded so
+    the gap between the positioning and the shipped surface is visible rather than inferred.
+  sources:
+    - https://www.modelop.com/ai-delivery-engine
+    - https://www.modelop.com/blog/modelop-kong-partnership-zero-trust-security-agentic-ai

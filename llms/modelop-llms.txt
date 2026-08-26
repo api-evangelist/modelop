@@ -1,0 +1,65 @@
+# ModelOp
+
+> ModelOp is enterprise software for governing and operationalizing artificial intelligence at scale. Its platform acts as an "AI system of record" that lets large organizations inventory every AI asset, automate the model lifecycle from development to production, enforce governance and regulatory policy, and report on cost, risk, and ROI across traditional machine learning, generative AI, and agentic AI.
+
+ModelOp sells primarily to large, regulated enterprises — financial services, insurance, healthcare, manufacturing, and government — and to roles such as Chief AI Officers, CIOs/CTOs, model risk and compliance teams, data science leaders, and security teams. The company is headquartered in Chicago, Illinois. Its flagship offering is the Enterprise AI Command Center, powered by the ModelOp AI Delivery Engine (MADE). The platform is designed to integrate with an enterprise's existing tools (50+ technologies across AI development, execution, data, GRC, ITSM, and security) rather than replace them. ModelOp also publishes a large library of vendor-neutral educational material on AI governance, AI regulations, and ModelOps practices.
+
+## Platform
+- [Enterprise AI Command Center](https://www.modelop.com/enterprise-ai-command-center): The core product — a centralized system of record that manages lifecycle, governance, and operational intelligence for all enterprise AI (ML, GenAI, agentic, and third-party/vendor AI).
+- [AI Delivery Engine (MADE)](https://www.modelop.com/ai-delivery-engine): The engine that powers the Command Center by connecting 50+ technologies, automating delivery workflows, and letting AI agents plug into the end-to-end lifecycle.
+- [AI Delivery Blueprint](https://www.modelop.com/ai-delivery-blueprint): Reference framework for how enterprises structure industrialized AI delivery.
+- [ModelOp Center (AI governance software)](https://www.modelop.com/ai-governance-software): Overview of the AI governance software platform.
+- [Automation & Orchestration](https://www.modelop.com/ai-governance-software/controls): How the platform enforces controls and orchestrates the AI lifecycle.
+- [Continuous Controls & Insights](https://www.modelop.com/ai-governance-software/reporting): Monitoring and reporting on AI cost, risk, and performance.
+- [Interoperability & Integrations](https://www.modelop.com/ai-governance-software/integrations): How ModelOp integrates with existing enterprise AI, data, GRC, ITSM, and security systems.
+
+## AI Governance (educational resources)
+- [AI Governance Overview](https://www.modelop.com/ai-governance): Hub explaining enterprise AI governance concepts.
+- [Generative AI Governance](https://www.modelop.com/ai-governance/generative-ai-governance): Governing generative AI use cases in the enterprise.
+- [Enterprise AI Governance](https://www.modelop.com/ai-governance/enterprise-ai-governance): Governing AI across a large organization.
+- [AI Governance Frameworks](https://www.modelop.com/ai-governance/ai-governance-framework): Frameworks for structuring AI governance.
+- [AI Governance Tools](https://www.modelop.com/ai-governance/ai-governance-tools): Overview of tooling used to govern AI.
+- [AI Regulations and Standards](https://www.modelop.com/ai-governance/ai-regulations-standards): Overview of major AI regulations and how to comply.
+- [SR 11-7](https://www.modelop.com/ai-governance/ai-regulations-standards/sr-11-7): Model risk management guidance for financial institutions.
+- [EU AI Act](https://www.modelop.com/ai-governance/ai-regulations-standards/eu-ai-act): Compliance with the European Union's AI Act.
+- [NIST AI Risk Management Framework (RMF)](https://www.modelop.com/ai-governance/ai-regulations-standards/nist-ai-rmf): Applying the NIST AI RMF.
+- [ISO/IEC 42001](https://www.modelop.com/ai-governance/ai-regulations-standards/iso-eic-42001): The AI management system standard.
+- [AI TRiSM (Trust, Risk, and Security Management)](https://www.modelop.com/ai-governance/ai-regulations-standards/ai-trism-adoption): Adoption of AI TRiSM practices.
+- [Responsible AI Governance](https://www.modelop.com/ai-governance/responsible-ai-governance): Practices for responsible AI.
+- [AI Ethics & Governance](https://www.modelop.com/ai-governance/ai-ethics-and-governance): Ethics considerations in AI governance.
+- [AI Governance, Risk & Compliance](https://www.modelop.com/ai-governance/ai-governance-risk-compliance): Intersection of AI governance and GRC.
+- [AI and Data Governance](https://www.modelop.com/ai-governance/ai-and-data-governance): How AI governance relates to data governance.
+- [AI Governance Challenges](https://www.modelop.com/ai-governance/ai-governance-challenges): Common challenges enterprises face.
+- [AI Principles and Best Practices](https://www.modelop.com/ai-governance/ai-principles-and-best-practices): Recommended principles and practices.
+- [AI Governance Glossary](https://www.modelop.com/ai-governance/glossary): Definitions of key AI governance terms.
+
+## AI Lifecycle Automation & ModelOps
+- [AI Lifecycle Automation Overview](https://www.modelop.com/ai-lifecycle-automation): Automating the end-to-end AI/model lifecycle.
+- [Model Operations (ModelOps) Overview](https://www.modelop.com/ai-lifecycle-automation/modelops): What ModelOps is and why it matters.
+- [ModelOps vs MLOps](https://www.modelop.com/ai-lifecycle-automation/modelops/mlops-vs-modelops): Explains the difference between ModelOps and MLOps.
+
+## Resources
+- [Blog](https://www.modelop.com/blog): Articles on AI governance, ModelOps, and enterprise AI delivery.
+- [Reports & eBooks](https://www.modelop.com/resources-ebooks): Whitepapers and analyst reports.
+- [The AI Portfolio Explosion (report)](https://www.modelop.com/resources-ebooks/the-ai-portfolio-explosion): On the rapid growth of enterprise AI initiatives and the gap between launches and measurable value.
+- [The Enterprise's Guide to Preparing for Agentic AI (whitepaper)](https://www.modelop.com/resources-ebooks/the-enterprises-guide-to-preparing-for-agentic-ai): Practical steps to control risk and govern agentic AI.
+- [Fidelity's AI Model Operations at Scale (Gartner case study)](https://www.modelop.com/blog/ai-model-operations-at-scale-for-fidelity-investments-case-study): How Fidelity uses a ModelOps framework to govern and scale AI.
+- [Webinars (Good Decisions Series)](https://www.modelop.com/good-decisions-series): Webinar series on enterprise AI.
+- [Podcasts](https://www.modelop.com/podcasts): ModelOp podcast episodes.
+- [Events](https://www.modelop.com/events): Upcoming and past events.
+- [Master Classes](https://www.modelop.com/learning): Educational master class content.
+- [ROI / Value Calculators](https://www.modelop.com/modelops-roi-calculators): Tools to estimate the value of industrialized AI delivery.
+- [RFP Template for AI Lifecycle Management & Governance](https://www.modelop.com/rfp-template-ai-lifecycle-management-and-governance): A reusable RFP template for buyers evaluating AI governance platforms.
+
+## Company
+- [About ModelOp](https://www.modelop.com/company): Company background and mission.
+- [Leadership](https://www.modelop.com/company/leadership): Leadership team.
+- [Newsroom / Press Releases](https://www.modelop.com/news-press-releases): Company news and announcements.
+- [Request a Demo](https://www.modelop.com/demo-request): Primary path to evaluate the product and talk to the team.
+- [Contact](https://www.modelop.com/contact): Headquartered at 227 W Monroe St, Suite 2100, Chicago, IL 60606.
+
+## Optional
+- [Careers](https://www.modelop.com/company/careers): Open roles at ModelOp.
+- [Privacy Policy](https://www.modelop.com/privacy-policy): Privacy practices.
+- [LinkedIn](https://www.linkedin.com/company/modelop/): Company LinkedIn page.
+- [YouTube](https://www.youtube.com/channel/UC71MvpuHi1cy4uvfA6PYBrQ): Company YouTube channel.
