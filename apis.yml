@@ -13,6 +13,17 @@ description: >-
   data, BI, GRC, ITSM and security systems. Because ModelOp Center runs inside the customer's own
   infrastructure, its Swagger UI and OpenAPI document are served only from a customer instance and
   are not published at any public URL.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/66205eb2534d2143f98716a4/6a1e0cff57f08839578807be_Homepage%20Image%20for%20Website%20Metadata%20-%201200x630%20v2.png
 url: https://raw.githubusercontent.com/api-evangelist/modelop/refs/heads/main/apis.yml
 x-type: company
