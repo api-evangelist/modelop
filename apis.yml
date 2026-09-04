@@ -24,6 +24,20 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  - rate-limits
+  - security
+  generated: '2026-09-02'
+  method: derived
 image: https://cdn.prod.website-files.com/66205eb2534d2143f98716a4/6a1e0cff57f08839578807be_Homepage%20Image%20for%20Website%20Metadata%20-%201200x630%20v2.png
 url: https://raw.githubusercontent.com/api-evangelist/modelop/refs/heads/main/apis.yml
 x-type: company
