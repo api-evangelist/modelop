@@ -48,7 +48,7 @@ modified: '2026-08-25'
 tags:
 - AI Governance
 - Model Risk Management
-- Machine-Learning
+- Machine Learning
 - MLOps
 - ModelOps
 - AI Lifecycle Automation
@@ -69,6 +69,7 @@ tags_raw:
 - Model Monitoring
 - Governance Risk and Compliance
 - Artificial Intelligence
+- Machine-Learning
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
