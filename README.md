@@ -64,5 +64,108 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ModelOp is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+ModelOp is enterprise software for governing and operationalizing artificial intelligence at scale. Founded as Open Data Group and headquartered in Chicago, Illinois, it sells an "AI system of record" — the Enterprise AI Command Center, powered by the ModelOp AI Delivery Engine (MADE) and delivered as ModelOp Center — that lets large regulated organizations inventory every AI asset, automate the model lifecycle from intake through retirement, enforce governance and regulatory policy, and report on cost, risk and ROI across traditional machine learning, generative AI and agentic AI. The platform is customer-deployed (Helm chart on Kubernetes) with a REST-compliant microservices architecture, a `moc` CLI, OAuth 2.0/OIDC authentication against the enterprise's own identity provider, and 50+ integrations spanning cloud, AI/ML platforms, data, BI, GRC, ITSM and security systems. Because ModelOp Center runs inside the customer's own infrastructure, its Swagger UI and OpenAPI document are served only from a customer instance and are not published at any public URL.
+
+**Areas:** AI Governance · Model Risk Management · Machine Learning · MLOps · ModelOps · AI Lifecycle Automation · Enterprise Software · Compliance · Model Monitoring · Governance Risk and Compliance · Artificial Intelligence
+
+## ModelOp on APIs.io
+
+Everything profiled for ModelOp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/modelop/](https://apis.io/providers/modelop/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [ModelOp Center REST API](https://apis.io/apis/modelop/modelop-center-rest-api/) — The REST-compliant, microservices-based API of ModelOp Center. It exposes the governance inventory (StoredModel entities — Use Cases and Model…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Modelop Runtime Streams](https://apis.io/asyncapis/modelop/modelop-runtime-streams/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Modelop Authentication](https://apis.io/security/modelop/modelop-authentication/)
+- [Modelop Domain Security](https://apis.io/security/modelop/modelop-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Modelop Plans Pricing](https://apis.io/plans/modelop/modelop-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Modelop Rate Limits](https://apis.io/rate-limits/modelop/modelop-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.modelop.com/)
+- [Documentation](https://modelopdocs.atlassian.net/wiki/spaces/MDHV)
+- [Getting started](https://modelopdocs.atlassian.net/wiki/spaces/MDHV/pages/3159982123/Getting+Started+with+ModelOp+Center)
+- [Support](https://www.modelop.com/contact)
+- [Blog](https://www.modelop.com/blog)
+- [Privacy policy](https://www.modelop.com/privacy-policy)
+- [GitHub](https://github.com/modelop)
+
+## API Evangelist rating
+
+**Kin Score 33.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 47.6 |
+| Access clarity | 10.5 |
+
+**Agent readiness 22.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 19.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/modelop/](https://apis.io/providers/modelop/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ModelOp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/modelop/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
